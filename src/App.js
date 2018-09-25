@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import MainForm from './components/MainForm'
+
+import data from './mock'
+
+
 class App extends Component {
+
   render() {
-    return (
+
+        const foodTypes = ['Все включено','Без питания','Завтраки','Завтрак и ужин','Завтрак, обед и ужин']
+
+        const starsTypes = ['Любая', '5','4','3','2','-','Апартаменты']
+
+      return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
+            <MainForm
+            san={data}
+            foodTypes={foodTypes}
+            starsTypes={starsTypes}
+            />
+
       </div>
     );
   }
