@@ -7,6 +7,9 @@ import HotelStarsForm from './formparts/HotelStarsForm'
 import PersonsForm from './formparts/PersonsForm'
 import FilterForm from './formparts/FilterForm'
 
+import View from './formparts/View'
+import ShowSelected from './formparts/ShowSelected'
+
 class MainForm extends Component {
 
     state = {
@@ -18,7 +21,9 @@ class MainForm extends Component {
         adult: 0, adultData:[],
         children: 0, childrenData:[]},
       filter: '',
-      selectedHotels: []
+      selectedHotels: [],
+      view: this.props.san,
+      selectedSan:[],
 
     }
 
@@ -37,6 +42,8 @@ class MainForm extends Component {
         this.setState ({datesForm: dateTo})
 
       }
+
+
 
 
     }
@@ -60,7 +67,31 @@ class MainForm extends Component {
       // не отмечено ни 1 пункта в том числе и ЛЮБОЙ
       let newStars = [...this.state.stars]
       newStars[index] = !newStars[index]
-      this.setState ({stars:newStars})
+
+      let newView = newStars.map ((el, ind)=>{
+
+        let iteration = []
+
+        if (el == true) {
+
+         iteration = this.props.san.map ((el, ind1)=>{
+           if (el.stars == this.props.starsTypes[ind]) {
+             return el
+           } else {
+             return null}
+         })
+
+         return iteration
+
+       } else {
+         return null
+       }
+
+
+
+      })
+
+      this.setState ({stars:newStars,view: newView})
 
     }
 
@@ -94,6 +125,12 @@ class MainForm extends Component {
 
     handleFilter = (str) => {
       this.setState ({filter: str})
+    }
+
+    handleSelectSan = (name) =>{
+      let newSelected = [...this.state.selectedSan]
+      newSelected[name]=!newSelected[name]
+      this.setState ({selectedSan:newSelected})
     }
 
   render() {
@@ -136,6 +173,18 @@ class MainForm extends Component {
       <p>Поиск по названию</p>
       <FilterForm
       handleFilter={this.handleFilter}/>
+
+      <p>Отели</p>
+      <View
+      handleSelectSan={this.handleSelectSan}
+      data={this.state.view}
+      />
+
+      <p>Выбранные отели</p>
+      <ShowSelected
+      all={this.props.san}
+      selected={this.state.selectedSan}
+      />
       </div>
     );
   }

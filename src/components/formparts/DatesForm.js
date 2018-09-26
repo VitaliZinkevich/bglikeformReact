@@ -10,7 +10,7 @@ class DatesForm extends Component {
   render() {
 
       return (
-      <div >
+      <div>
 
       <span>C  </span><input
       type='date'
