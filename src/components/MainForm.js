@@ -67,23 +67,25 @@ class MainForm extends Component {
       // не отмечено ни 1 пункта в том числе и ЛЮБОЙ
       let newStars = [...this.state.stars]
       newStars[index] = !newStars[index]
+      // складывать сразу в копия соотв стейта
+      let iteration = []
 
-      let newView = newStars.map ((el, ind)=>{
-
-        let iteration = []
-
+      newStars.map ((el, ind)=>{
         if (el == true) {
 
          iteration = this.props.san.map ((el, ind1)=>{
            if (el.stars == this.props.starsTypes[ind]) {
+             console.log (el)
              return el
            } else {
-             return null}
+             return null }
          })
+
 
          return iteration
 
        } else {
+
          return null
        }
 
@@ -91,7 +93,11 @@ class MainForm extends Component {
 
       })
 
-      this.setState ({stars:newStars,view: newView})
+      console.log (iteration)
+      if (iteration.length === 0 ) {
+        iteration = this.props.san
+      }
+      this.setState ({stars:newStars,view: iteration})
 
     }
 

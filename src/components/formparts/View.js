@@ -14,22 +14,28 @@ class View extends Component {
     let obj = this.props.data
 
     let objView = obj.map ((el,ind)=>{
-      return (
-        <div key={ind} >
+      if (el == null ) {
 
-        <input
-        onClick={this.handleClick}
-        type='checkbox'
-        name={ind}
-        />
-        <span>выбрать</span>
+      } else {
+        return (
+          <div key={ind} >
 
-        <p>{el.name}</p>
-        <p>{el.type}</p>
-        <p>{el.region}</p>
-        <p>{el.stars}</p>
-        </div>
-      )
+          <input
+          onClick={this.handleClick}
+          type='checkbox'
+          name={ind}
+          />
+          <span>выбрать</span>
+
+          <p>{el.name}</p>
+          <p>{el.type}</p>
+          <p>{el.region}</p>
+          <p>{el.stars}</p>
+          </div>
+        )
+
+      }
+
     })
 
     return (
