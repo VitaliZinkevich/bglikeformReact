@@ -67,37 +67,26 @@ class MainForm extends Component {
       // не отмечено ни 1 пункта в том числе и ЛЮБОЙ
       let newStars = [...this.state.stars]
       newStars[index] = !newStars[index]
-      // складывать сразу в копия соотв стейта
-      let iteration = []
+
+      let newView = []
 
       newStars.map ((el, ind)=>{
         if (el == true) {
+        this.props.san.map ((elem, ind1)=>{
+            if (elem.stars == this.props.starsTypes[ind] ) {
+              newView.push (elem)
+            } else {}
 
-         iteration = this.props.san.map ((el, ind1)=>{
-           if (el.stars == this.props.starsTypes[ind]) {
-             console.log (el)
-             return el
-           } else {
-             return null }
          })
 
-
-         return iteration
-
-       } else {
-
-         return null
-       }
-
-
-
+        }
       })
 
-      console.log (iteration)
-      if (iteration.length === 0 ) {
-        iteration = this.props.san
-      }
-      this.setState ({stars:newStars,view: iteration})
+      if ((newStars.indexOf(true) == -1) && (newView.length === 0) ) {
+        newView = this.props.san
+         }
+
+      this.setState ({stars:newStars, view: newView})
 
     }
 
@@ -130,7 +119,20 @@ class MainForm extends Component {
     }
 
     handleFilter = (str) => {
-      this.setState ({filter: str})
+    //  this.setState ({filter: str})
+    let newView = []
+    this.props.san.forEach ((el, ind)=>{
+
+      if (el.name.toLowerCase().indexOf (str.toLowerCase()) != -1 ) {
+        newView.push (el)
+      }
+      this.setState ({filter: str, view: newView})
+    })
+
+
+
+
+
     }
 
     handleSelectSan = (name) =>{
@@ -145,30 +147,43 @@ class MainForm extends Component {
 
     return (
       <div>
+      <div className='d-flex flex-row flex-wrap justify-content-around my-5'>
 
+      <div className='d-flex flex-column mx-3 my-3'>
       <p>Даты начала тура</p>
       <DatesForm
       handleDates={this.handleDates}
       />
+      </div>
 
+      <div className='d-flex flex-column mx-3 my-3'>
       <p>Количество ночей</p>
       <NightsForm
       handleNights={this.handleNights}
       />
+      </div>
 
+
+
+      <div className='d-flex flex-column mx-3 my-3'>
       <p>Тип питания</p>
       <FoodForm
       foodTypes={this.props.foodTypes}
       handleFood={this.handleFood}
       />
+      </div>
 
+      <div className='d-flex flex-column mx-3 my-3'>
       <p>Категория отеля</p>
       <HotelStarsForm
       starsTypes={this.props.starsTypes}
       handleStars={this.handleStars}
       />
+      </div>
 
+      <div className='d-flex flex-column mx-3 my-3'>
       <p>Размещение</p>
+
       <PersonsForm
       handlePersons={this.handlePersons}
       handlePersonsDetailes={this.handlePersonsDetailes}
@@ -176,21 +191,40 @@ class MainForm extends Component {
       children={this.state.persons.children}
       />
 
-      <p>Поиск по названию</p>
+      </div>
+      </div>
+
+
+
+
+    <div className='d-flex flex-column mx-3 my-3'>
+
+      <div className='d-flex flex-row mx-3 my-3'>
+      <p className='mx-1'>Поиск по названию</p>
       <FilterForm
       handleFilter={this.handleFilter}/>
+      </div>
 
+      <div className='d-flex flex-row '>
+      <div className='d-flex flex-column mx-3 my-3'>
       <p>Отели</p>
       <View
       handleSelectSan={this.handleSelectSan}
       data={this.state.view}
       />
+      </div>
 
+      <div className='d-flex flex-column mx-3 my-3'>
       <p>Выбранные отели</p>
       <ShowSelected
       all={this.props.san}
       selected={this.state.selectedSan}
       />
+      </div>
+      </div>
+    </div>
+
+
       </div>
     );
   }

@@ -22,7 +22,7 @@ class PersonsForm extends Component {
     let adultDetailes = detailesAd.map ((el,ind)=>{
       return (
         <div key={ind} >
-        <p>Данные взрослого {ind+1}</p>
+        <span><strong>Данные взрослого {ind+1}</strong></span>
         <PersonDetailes
         handlePersonsDetailes={this.handlePersonsDetailes}
         i={ind}
@@ -38,7 +38,7 @@ class PersonsForm extends Component {
     let childrenDetailes = detailesCh.map ((el,ind)=>{
       return (
         <div key={ind} >
-        <p>Данные ребенка {ind+1}</p>
+        <span><strong>Данные ребенка {ind+1}</strong></span>
         <PersonDetailes
         handlePersonsDetailes={this.handlePersonsDetailes}
         i={ind}

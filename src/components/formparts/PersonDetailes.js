@@ -12,8 +12,7 @@ class PersonDetailes extends Component {
 
       return (
     <div>
-
-    <span>Лет туристу {this.props.i+1}</span>
+    Лет туристу {this.props.i+1}
     <input
     type='number'
     onChange={this.handleChange}
