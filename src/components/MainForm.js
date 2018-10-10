@@ -6,6 +6,7 @@ import FoodForm from './formparts/FoodForm'
 import HotelStarsForm from './formparts/HotelStarsForm'
 import PersonsForm from './formparts/PersonsForm'
 import FilterForm from './formparts/FilterForm'
+import axios from 'axios'
 
 import View from './formparts/View'
 import ShowSelected from './formparts/ShowSelected'
@@ -25,6 +26,14 @@ class MainForm extends Component {
       view: this.props.san,
       selectedSan:[],
 
+    }
+
+    componentDidMount=()=>{
+      axios.get('http://localhost:8080/')
+        .then(res => {
+          console.log(res);
+          
+        })
     }
 
     handleDates = (value, name)=>{
