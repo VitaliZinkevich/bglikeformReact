@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+
 
 import DatesForm from './formparts/DatesForm'
 import NightsForm from './formparts/NightsForm'
@@ -6,35 +8,12 @@ import FoodForm from './formparts/FoodForm'
 import HotelStarsForm from './formparts/HotelStarsForm'
 import PersonsForm from './formparts/PersonsForm'
 import FilterForm from './formparts/FilterForm'
-import axios from 'axios'
+
 
 import View from './formparts/View'
 import ShowSelected from './formparts/ShowSelected'
 
 class MainForm extends Component {
-
-    state = {
-      datesForm: {dateFrom: null, dateTo: null},
-      nights:[],
-      food: [],
-      stars:[],
-      persons:{
-        adult: 0, adultData:[],
-        children: 0, childrenData:[]},
-      filter: '',
-      selectedHotels: [],
-      view: this.props.san,
-      selectedSan:[],
-
-    }
-
-    componentDidMount=()=>{
-      axios.get('http://localhost:8080/')
-        .then(res => {
-          console.log(res);
-          
-        })
-    }
 
     handleDates = (value, name)=>{
       /* проверка на начальнуюд и конечную даиту*/
@@ -189,22 +168,10 @@ class MainForm extends Component {
       handleStars={this.handleStars}
       />
       </div>
-
       <div className='d-flex flex-column mx-3 my-3'>
       <p>Размещение</p>
-
-      <PersonsForm
-      handlePersons={this.handlePersons}
-      handlePersonsDetailes={this.handlePersonsDetailes}
-      adult={this.state.persons.adult}
-      children={this.state.persons.children}
-      />
-
       </div>
       </div>
-
-
-
 
     <div className='d-flex flex-column mx-3 my-3'>
 
@@ -218,17 +185,13 @@ class MainForm extends Component {
       <div className='d-flex flex-column mx-3 my-3'>
       <p>Отели</p>
       <View
-      handleSelectSan={this.handleSelectSan}
-      data={this.state.view}
+      
       />
       </div>
 
       <div className='d-flex flex-column mx-3 my-3'>
       <p>Выбранные отели</p>
-      <ShowSelected
-      all={this.props.san}
-      selected={this.state.selectedSan}
-      />
+     
       </div>
       </div>
     </div>
@@ -239,4 +202,13 @@ class MainForm extends Component {
   }
 }
 
-export default MainForm;
+
+const mapStateToProps = (state) => {
+  return {
+    foodTypes: [...state.foodTypes],
+    starsTypes: [...state.starsTypes],
+    hotels:[...state.hotels]
+  }
+}
+
+export default connect(mapStateToProps)(MainForm);
