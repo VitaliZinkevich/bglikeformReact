@@ -10,14 +10,17 @@ import rootReducer from './reducers/rootReducer'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import axios from 'axios'
+import promise from 'redux-promise-middleware'
 
-
-const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+const store = createStore(rootReducer, applyMiddleware(promise(), thunk, logger));
 
 // вынести в отдельный файл ВЫНЕСЕНО
 store.dispatch((dispatch)=>{
 
-    dispatch({type: 'FETCH_HOTELS'})
+    dispatch ({type: 'FOO', payload :axios.get('http://localhost:8080/')})
+})
+
+ /*   dispatch({type: 'FETCH_HOTELS'})
     axios.get('http://localhost:8080/')
     .then(res => {
         dispatch({type: 'HOTELS_RECIVED', payload: res.data})
@@ -25,7 +28,7 @@ store.dispatch((dispatch)=>{
         dispatch({type: 'HOTELS_ERROR', payload: error})
     })
     
-})
+})*/
 
 
 
