@@ -14,23 +14,43 @@ import MainForm from './components/MainForm'
 
 class App extends Component {
 
-  render() {
+  
 
+  render() {
+    
+    let styleFooter = {
+      position: 'fixed',
+      bottom: 0,
+      right: 0,
+      left:0,
+    }
+
+  
 
 
       return (
     <BrowserRouter>
-      <div className='h-100 d-block'>
-            <Navbar/>
-            <Switch>
+      <div className='row'>
+      
+        <div className='col-12'>
+        <Navbar/>
+        </div>
+        <div className='col-12'>
+        <Switch>
               <Route exact path='/' component={Home}/>
               <Route path='/search' component={MainForm}/>
               <Route path='/about' component={About}/>
               <Route path='/contact' component={Contact}/>
               <Route path='/myaccount' component={MyAccount}/>
 
-            </Switch>
-            <Footer/>
+        </Switch>
+        
+        </div>   
+
+        <div className='row'>
+        <Footer/> 
+        </div>  
+             
       </div>      
     </BrowserRouter>
     );
